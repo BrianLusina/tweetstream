@@ -13,7 +13,8 @@ def index():
     topics = ["Britain", "France", "Kenya"]
     tweets_for(topics) \
         .map(lambda d: json.loads(d)) \
-        .subscribe(on_next=lambda s: print(s), on_error=lambda e: print(e))
+        .subscribe(on_next=lambda s: print(s),
+                   on_error=lambda e: print("Error found => ", e))
 
 
 def tweets_for(topics):
@@ -29,8 +30,12 @@ def tweets_for(topics):
         """
         twitter_consumer_key = current_app.config.get("TWITTER_CONSUMER_KEY")
         twitter_secret = current_app.config.get("TWITTER_CONSUMER_SECRET")
+        twitter_access_token = current_app.config.get("TWITTER_ACCESS_TOKEN")
+        twitter_access_token_secret = current_app.config.get("TWITTER_ACCESS_TOKEN_SECRET")
+
         listener = TweetListener(observer)
         auth = OAuthHandler(twitter_consumer_key, twitter_secret)
+        auth.set_access_token(twitter_access_token, twitter_access_token_secret)
         stream = Stream(auth, listener)
         stream.filter(topics)
 
