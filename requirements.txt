@@ -5,6 +5,7 @@ click==6.7
 coverage==4.4.1
 Flask==0.12.2
 Flask-Script==2.0.5
+Flask-WTF==0.14.2
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.9.6
@@ -18,3 +19,4 @@ six==1.10.0
 tweepy==3.5.0
 urllib3==1.22
 Werkzeug==0.12.2
+WTForms==2.1
