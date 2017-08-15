@@ -12,38 +12,18 @@ class Config(object):
     incoming requests using one and performing background
     operations using the other.
     :cvar CSRF_SESSION_KEY Use a secure, unique and absolutely secret key for signing the data.
-    :cvar SQLALCHEMY_DATABASE_URI Define the database - we are working with SQLite for this example
     """
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hadithi'
-    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT") or 'my_precious_two'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'tweetstream'
+    SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT") or 'tweet_stream_rx'
     ROOT_DIR = APP_ROOT
     WTF_CSRF_ENABLED = True
     CSRF_ENABLED = True
     CSRF_SESSION_KEY = os.environ.get("CSRF_SESSION_KEY")
     THREADS_PER_PAGE = 2
-    DATABASE_CONNECT_OPTIONS = {}
-
-    # mail settings
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 465
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
-
-    # gmail authentication
-    MAIL_USERNAME = os.environ.get('APP_MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('APP_MAIL_PASSWORD')
-
-    MAIL_DEFAULT_SENDER = os.environ.get("MAIL_DEFAULT_SENDER")
 
     # credentials for external service accounts
-    OAUTH_CREDENTIALS = dict(
-        twitter=dict(id=os.environ.get("TWITTER_KEY"),
-                     secret=os.environ.get("TWITTER_SECRET"))
-    )
+    TWITTER_CONSUMER_KEY = os.environ.get("TWITTER_CONSUMER_KEY")
+    TWITTER_CONSUMER_SECRET = os.environ.get("TWITTER_CONSUMER_SECRET")
 
     @staticmethod
     def init_app(app):
@@ -55,8 +35,7 @@ class DevelopmentConfig(Config):
     Development configuration
     """
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 
 
 class TestingConfig(Config):
@@ -75,8 +54,7 @@ class ProductionConfig(Config):
     """
     Production configuration
     """
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    ADMINS = [os.environ.get("ADMIN_EMAIL_1")]
+    ADMINS = [os.environ.get("ADMIN_EMAIL")]
 
 
 config = {
