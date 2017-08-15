@@ -43,7 +43,7 @@ A couple of things you will need
 Clone repository (or fork it, whatever tickles your fancy)
 
 ```bash
-$ git clone https://github.com/Wyvarn/tweetstream.git
+$ git clone https://github.com/BrianLusina/tweetstream.git
 $ cd tweetstream
 $ virtualenv venv
 $ . venv/bin/activate
