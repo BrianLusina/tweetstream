@@ -27,10 +27,14 @@ A couple of things you will need
    ```plain
    TWITTER_CONSUMER_KEY=<CONSUMER_KEY
    TWITTER_CONSUMER_SECRET=<CONSUMER_SECRET>
+   TWITTER_ACCESS_TOKEN=<CONSUMER_ACCESS_TOKEN>
+   TWITTER_ACCESS_TOKEN_SECRET=<CONSUMER_ACCESS_TOKEN_SECRET>
    ...
    <OTHER CREDENTIALS>
    ```
-
+   
+   Read [here](https://dev.twitter.com/oauth/overview/application-owner-access-tokens) for how to access access tokens
+   
 3. A love for Python
   
   This has to be obvious for this project. :D :smile:
