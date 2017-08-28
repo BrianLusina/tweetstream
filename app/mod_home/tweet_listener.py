@@ -1,4 +1,4 @@
-from tweepy import Stream, StreamListener
+from tweepy import StreamListener
 
 
 class TweetListener(StreamListener):
