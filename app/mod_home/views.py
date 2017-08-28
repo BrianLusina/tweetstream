@@ -6,26 +6,40 @@ from tweepy import Stream, OAuthHandler
 from .forms import TopicsForm
 from . import home
 from .tweet_listener import TweetListener
+from pprint import pprint
 
 
 @home.route("", methods=["POST", "GET"])
 def index():
     topics_form = TopicsForm(request.form)
     tweet_stream = None
+    context = {
+        "topics_form": topics_form,
+        "topic_tweets": []
+    }
     if request.method == "POST":
         if topics_form.validate_on_submit():
             topics = topics_form.topic_name.data
 
-            tweet_stream = tweets_for(topics).map(lambda d: json.loads(d)) \
-                .subscribe(on_next=lambda s: print(s),
+            tweets_for(topics).map(lambda d: json.loads(d)) \
+                .subscribe(on_next=lambda s: context["topic_tweets"].append(format_tweet(s)),
                            on_error=lambda e: print("Error found => ", e))
 
-    topics = ["Britain", "France", "Kenya"]
-    return tweets_for(topics) \
-        .map(lambda d: json.loads(d)) \
-        .subscribe(on_next=lambda s: print(s),
+    topics = ["Kenya"]
+    return tweets_for(topics).map(lambda d: json.loads(d)) \
+        .subscribe(on_next=lambda s: pprint(s),
                    on_error=lambda e: print("Error found => ", e))
-    return render_template("home.topics.html", topics_form=topics_form)
+
+    return render_template("home.topics.html", **context)
+
+
+def format_tweet(tweet):
+    """
+    Formats a tweet to understandable data for display
+    :param tweet: tweet from tweet stream
+    :return: a nicely formated tweet
+    """
+    pass
 
 
 def tweets_for(topics):
